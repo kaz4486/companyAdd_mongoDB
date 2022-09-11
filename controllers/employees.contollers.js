@@ -49,13 +49,13 @@ exports.put = async (req, res) => {
   const { firstName, lastName } = req.body;
 
   try {
-    const emp = await Employee.findById(req.params.id);
+    const emp = await Employee.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { firstName: firstName, lastName: lastName } },
+      { new: true }
+    );
     if (emp) {
-      await Employee.updateOne(
-        { _id: req.params.id },
-        { $set: { firstName: firstName, lastName: lastName } }
-      );
-      res.json({ message: 'OK' });
+      res.json({ message: 'OK', modifiedEmp: emp });
     } else res.status(404).json({ message: 'Not found...' });
   } catch (err) {
     res.status(500).json({ message: err });
@@ -64,11 +64,11 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const emp = await Employee.findById(req.params.id);
+    const emp = await Employee.findOneAndDelete({ _id: req.params.id });
     if (emp) {
-      await Employee.deleteOne({ _id: req.params.id });
+      //   await Employee.deleteOne({ _id: req.params.id });
       //await dep.remove(); - zadziała?
-      res.json({ message: 'OK' });
+      res.json({ message: 'OK', deletedEmp: emp });
     } else res.status(404).json({ message: 'Not found' });
   } catch (err) {
     res.status(500).json({ message: err });
