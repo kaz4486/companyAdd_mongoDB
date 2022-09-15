@@ -33,10 +33,9 @@ exports.getById = async (req, res) => {
 exports.post = async (req, res) => {
   try {
     const { firstName, lastName } = req.body;
-    // dlaczego z {}? jak import?
     const newEmployee = new Employee({
-      firstName: firstName,
-      lastName: lastName,
+      firstName,
+      lastName,
     });
     await newEmployee.save();
     res.json({ message: 'OK' });

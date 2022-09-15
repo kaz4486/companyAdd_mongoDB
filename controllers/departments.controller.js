@@ -33,8 +33,7 @@ exports.getById = async (req, res) => {
 exports.post = async (req, res) => {
   try {
     const { name } = req.body;
-    // dlaczego z {}? jak import?
-    const newDepartment = new Department({ name: name });
+    const newDepartment = new Department({ name });
     await newDepartment.save();
     res.json({ message: 'OK' });
   } catch (err) {
@@ -48,7 +47,7 @@ exports.put = async (req, res) => {
   try {
     const dep = await Department.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: { name: name } },
+      { $set: { name } },
       { new: true }
     );
     if (dep) {

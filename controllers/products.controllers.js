@@ -48,8 +48,8 @@ exports.put = async (req, res) => {
   try {
     const prod = await Product.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: { name: name, client: client } },
-      { new: true }
+      { $set: { name, client } },
+      { new: true, upsert: true } //upsert - jak nie znajdzie to dodaje
     );
     if (prod) {
       res.json({ message: 'OK', modifiedProd: prod });
