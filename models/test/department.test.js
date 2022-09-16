@@ -38,7 +38,7 @@ describe('Department', () => {
     });
   });
   // clear model after each test
-  after(() => {
-    mongoose.models = {};
-  });
+  //   after(() => {
+  //     mongoose.models = {};
+  //   });
 });

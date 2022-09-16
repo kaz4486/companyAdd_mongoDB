@@ -21,15 +21,6 @@ describe('Employee', () => {
       expect(err.errors.lastName).to.exist;
     });
   });
-  it('should throw an error if no "department" arg', () => {
-    const firstName = 'Krystian';
-    const lastName = 'Paprykowski';
-    const department = undefined;
-    const emp = new Employee({ firstName, lastName, department });
-    emp.validate((err) => {
-      expect(err.errors.department).to.exist;
-    });
-  });
   it('should throw an error if "firstName" arg is not a string', () => {
     const cases = [{}, []];
     const lastName = 'Paprykowski';
